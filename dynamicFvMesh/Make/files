@@ -1,0 +1,22 @@
+dynamicFvMesh/dynamicFvMesh.C
+dynamicFvMesh/dynamicFvMeshNew.C
+
+adaptCriteria/adaptCriteria.C
+adaptCriteria/fieldBounds/fieldBounds.C
+adaptCriteria/geometric/geometric.C
+adaptCriteria/composedAdaptCriteria/composedAdaptCriteria.C
+
+staticFvMesh/staticFvMesh.C
+dynamicMotionSolverFvMesh/dynamicMotionSolverFvMesh.C
+dynamicMultiMotionSolverFvMesh/dynamicMultiMotionSolverFvMesh.C
+dynamicInkJetFvMesh/dynamicInkJetFvMesh.C
+dynamicRefineFvMesh/dynamicRefineFvMesh.C
+dynamicMotionSolverListFvMesh/dynamicMotionSolverListFvMesh.C
+dynamicMultiDimRefineFvMesh/dynamicMultiDimRefineFvMesh.C
+dynamicMultiDimRefineBalancedFvMesh/fvMeshDistributeAddPatch/fvMeshDistributeAddPatch.C
+dynamicMultiDimRefineBalancedFvMesh/dynamicMultiDimRefineBalancedFvMesh.C
+
+simplifiedDynamicFvMesh/simplifiedDynamicFvMeshes.C
+simplifiedDynamicFvMesh/simplifiedDynamicFvMesh.C
+
+LIB = $(FOAM_LIBBIN)/libdynamicFvMesh
