@@ -1,0 +1,14 @@
+#!/bin/bash -l
+#PBS -N wmake
+#PBS -l walltime=1:00:00
+#PBS -l ncpus=1
+#PBS -l mem=2GB
+
+#PBS -j oe
+#PBS -k oe
+
+module load intel/2017a
+source ~/OpenFoam_v1912_install/OpenFOAM-v1912/etc/bashrc
+cd $PBS_O_WORKDIR
+
+./wmakeScript

@@ -1,0 +1,1 @@
+rho == mixture.Heaviside()*rho1 + (double(1)-mixture.Heaviside())*rho2;
