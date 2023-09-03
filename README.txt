@@ -17,10 +17,7 @@ This project was developed as part of a PhD thesis titled "Development of improv
 
 - surfactantInterFoam
 - transportModels
-- parallel
-- dynamicMesh
-- dynamicFvMesh
-- MakeAxialMesh
+
 
 # surfactantInterFoam
 
@@ -97,13 +94,7 @@ The transportModels module has been modified to incorporate Marangoni stresses d
 
 # Others
 
-## dynamicMesh and dynamicFvMesh
-
-These components allow the use of a dynamic mesh in a wedge domain
-
-## MakeAxialMesh
-
-MakeAxialMesh is used to create a wedge domain from a 2D domain, modified to fit the OpenFOAM version of this project.
+The new solver needs material develloped by other OpenFOAM users: dynamicMesh, dynamicFvMesh and MakeAxialMesh that are available online.
 
 #References and Links
 
