@@ -1,0 +1,66 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         Euler;
+}
+
+gradSchemes
+{
+	default			Gauss linear;
+}
+
+divSchemes
+{
+	//Main options : Gauss upwind /  Gauss vanLeer / Gauss linear limited 0.3 // Gauss linearUpwind grad(U) //Minmod //SuperBee
+	default        Gauss upwind;
+	
+    div(rhoPhi,U)  Gauss linearUpwindV grad(U);
+    div(phi,alpha)  Gauss vanLeer;
+	div(phirb,alpha) Gauss linear;
+	div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+	
+	div(phirb,Heaviside) Gauss linear;
+	
+	div(phi,saaConcBulk) Gauss upwind; //Gauss upwind;// Gauss linearUpwind grad(saaConcBulk);
+	div(phirBulk,saaConcBulk) Gauss upwind; //Gauss SuperBee; //Gauss vanLeer; //Gauss linear; //Gauss upwind;
+	div(phisBulk,saaConcBulk) Gauss upwind; //Gauss SuperBee; //Gauss vanLeer; //Gauss linear; //Gauss upwind;
+	div(bulkCorrGradf,saaConcBulk) Gauss upwind; //Gauss SuperBee; //Gauss vanLeer; //Gauss upwind; //Gauss linear; // Gauss upwind;//Gauss linearUpwind grad(U);// Gauss upwind;//Gauss linearUpwind grad(saaConcBulk);
+	
+	div(phi,saaConcInf)	 Gauss upwind; //Gauss upwind; //Gauss upwind;//Gauss linearUpwind grad(saaConcSurfMax*iotaInf);
+	div(phirInf,saaConcInf) Gauss upwind; //Gauss SuperBee; //Gauss vanLeer; // Gauss linear; //Gauss upwind;
+	div(infCorrGradf,saaConcInf) Gauss upwind; //Gauss SuperBee; //Gauss vanLeer; //Gauss upwind; //Gauss linear; //Gauss upwind; //Gauss linear limited 0.33; //Gauss linearUpwind grad(U);// Gauss upwind;//Gauss linearUpwind grad(saaConcInf);
+}
+
+laplacianSchemes
+{
+	default         Gauss linear corrected; // Gauss linear orthogonal; //Gauss linear limited corrected 0.33;// Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected; //orthogonal; //corrected;
+}
+
+
+// ************************************************************************* //

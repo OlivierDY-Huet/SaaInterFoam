@@ -1,0 +1,26 @@
+#!/bin/bash -l
+#PBS -N AxySymDrop
+#PBS -l walltime=4:00:00
+#PBS -l select=1:ncpus=1:mpiprocs=1:mem=40GB
+
+#PBS -j oe
+#PBS -k oe
+
+module load intel/2017a
+source ~/OpenFoam_v1912_install/OpenFOAM-v1912/etc/bashrc
+cd $PBS_O_WORKDIR
+
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions
+
+timeList=$(ls processor0/ | awk '$1!="constant"');
+for line in $timeList
+do
+    echo "Recontructing mesh for t = "$line" s";
+    reconstructParMesh -mergeTol 1e-06 -time $line > logTmp;
+
+    echo "Reconstructing fields for t = "$line" s";
+    reconstructPar -time $line > logTmp;
+
+    echo "";
+done
+rm logTmp;

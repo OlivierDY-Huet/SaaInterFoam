@@ -1,0 +1,83 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1806                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      transportProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+phases (water air);
+
+water
+{
+    transportModel  Newtonian;
+    nu              1e-6;
+    rho             1000;
+}
+
+air
+{
+    transportModel  Newtonian;
+    nu              1.48e-05;
+    rho             1;
+}
+
+sigma            	
+{
+	type			saaConcDependent;
+	sigma0			7.2e-2;
+	sigmaMinLimit	2.0e-2;
+	saaN			2;
+}
+
+dropRadius			5.0E-4;
+dropCentre			(0 6E-4 0); 
+dropVelocity		(0 -0.5 0);
+
+saaInfCompCoef		0;
+saaInfCompEdgeCoef	1;
+coefIotaSmall		0.001;
+
+calculateAllNormals	0; //default =0;
+interpolateSSFField 0; //default =0;
+
+ReinitSwitch		1; //default =1;
+advectPsi 			true;	//default =false;
+
+sorptionSwitch		true;
+iotaSwitch			1;
+saaInfIniSwitch		true;
+
+saaCMC				8.1;
+diffSaaBulk			7.84e-11;
+diffSaaInf 			0;
+coefAd				3.0;
+isothermLangmuir	2.155489698e-1;
+coefBarrier			22;
+coefDesorpBoost		5;	
+saaConcSurfMax		4.7e-6;	
+saaConcSurfIni		-1;		//-1:Automatic
+saaConcBulkIni		8.1;
+
+coefMarangoni		1;
+
+VOFLSSwitch			3;
+
+infIntrplRoundCell		1;
+infIntrplRoundNormal	1;
+coefInfInrpl		1;
+
+
+saaInfIni			true;
+
+// ************************************************************************* //

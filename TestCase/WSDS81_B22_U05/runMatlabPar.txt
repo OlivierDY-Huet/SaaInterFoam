@@ -1,0 +1,11 @@
+#!/bin/bash -l
+
+#PBS -N matlabMod
+#PBS -l walltime=4:00:00
+#PBS -l ncpus=4
+#PBS -l mem=40GB
+
+module load matlab/2022a
+cd $PBS_O_WORKDIR
+
+matlab -nodisplay -r "parpool(4);interpolateOFDataHPC(2,7,10);quit();"

@@ -1,0 +1,14 @@
+#!/bin/bash -l
+#PBS -N AxySymDrop
+#PBS -l walltime=168:00:00
+#PBS -l select=1:ncpus=8:mpiprocs=8:mem=40GB
+
+#PBS -j oe
+#PBS -k oe
+
+module load intel/2017a
+source ~/OpenFoam_v1912_install/OpenFOAM-v1912/etc/bashrc
+cd $PBS_O_WORKDIR
+
+./Allclean
+./Allrun

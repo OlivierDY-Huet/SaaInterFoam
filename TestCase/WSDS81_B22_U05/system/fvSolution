@@ -1,0 +1,342 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+    "alpha.water.*"
+    {
+	
+		MULESCorr       yes; //Turn on/off semi-explicit MULES
+		nAlphaSubCycles 1; // 1 for semi-explicit MULES ; 2 or higher otherwise
+		
+        nAlphaCorr      3; //3 for high Re number
+        
+        cAlpha          1;
+		icAlpha			0;
+		scAlpha			0;
+
+        nLimiterIter    5;
+		alphaApplyPrevCorr no; //Yes for slow flow
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-8;
+        relTol          0;
+    }
+
+    "pcorr.*"
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-6;
+        relTol          0;
+		minIter			3; //Default:0
+		maxIter			100; //Default:0
+    }
+
+    p_rgh
+    {
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0.00;
+		minIter			3; //Default:0
+		maxIter			100; //Default:0
+    }
+
+    p_rghFinal
+    {
+        $p_rgh;
+        relTol          0;
+    }
+	
+	"U.*"
+    {
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-08;
+        relTol          0;
+		minIter			3; //Default:0
+		maxIter			100; //Default:0
+    }
+	
+	/*
+    U
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	*/
+	psi
+	{
+		epsilonFact		1.4;
+		deltaTauFact	0.1;
+		shCoef			0.4;
+	}
+	
+	sigma
+	{
+	}
+	
+	
+	
+	saaConcBulk
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0;
+		//minIter			3; //Default:0
+		//maxIter			100; //Default:0
+    }
+	
+	saaConcBulkFinal
+    {
+        $saaConcBulk;
+        relTol          0;
+    }
+	
+	saaConcInf
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0;
+		//minIter			3; //Default:0
+		//maxIter			100; //Default:0
+    }
+	
+	saaConcInfFinal
+    {
+        $saaConcInf;
+        relTol          0;
+    }
+	
+	
+	saaCBNew
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0;
+		minIter			3; //Default:0
+		//maxIter			100; //Default:0
+    }
+	
+	saaCBNewFinal
+    {
+        $saaCBNew;
+        relTol          0;
+    }
+	
+	saaCINew
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-08;
+        relTol          0;
+		minIter			3; //Default:0
+		//maxIter			100; //Default:0
+    }
+	
+	saaCINewFinal
+    {
+        $saaCINew;
+        relTol          0;
+    }
+	
+	saaConcInfCorr
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaConcInfCorrFinal
+    {
+        $saaConcInfCorr;
+        relTol          0;
+    }
+	
+	saaConcInfEff
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaConcInfEffFinal
+    {
+        $saaConcInfEff;
+        relTol          0;
+    }
+	
+	saaConcWall
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaConcWallFinal
+    {
+        $saaConcWall;
+        relTol          0;
+    }
+	
+	saaSink
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaSinkFinal
+    {
+        $saaSink;
+        relTol          0;
+    }
+	
+	saaSink0
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaSink0Final
+    {
+        $saaSink0;
+        relTol          0;
+    }
+	
+	saaConcInfCorr
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaConcInfCorrFinal
+    {
+        $saaConcInfCorr;
+        relTol          0;
+    }
+	
+	saaConcInfIntrpl
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	saaConcInfIntrplFinal
+    {
+        $saaConcInfIntrpl;
+        relTol          0;
+    }
+	
+	DiracIntrpl
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	DiracIntrplFinal
+    {
+        $DiracIntrpl;
+        relTol          0;
+    }
+	
+	
+	alphaP
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	alphaPFinal
+    {
+        $alphaP;
+        relTol          0;
+    }
+	
+	
+	alphaPAdv
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	alphaPAdvFinal
+    {
+        $alphaPAdv;
+        relTol          0;
+    }
+	
+	
+	gradAlpha1Mag
+    {
+        solver          smoothSolver;
+		smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0;
+    }
+	
+	gradAlpha1MagFinal
+    {
+        $gradAlpha1Mag;
+        relTol          0;
+    }
+	
+	
+	
+}
+
+PIMPLE
+{
+    momentumPredictor   yes;
+    nOuterCorrectors    1;
+    nCorrectors         2;
+    nNonOrthogonalCorrectors 0;
+}
+
+relaxationFactors
+{
+    equations
+    {
+        ".*" 1;
+    }
+}
+
+
+// ************************************************************************* //

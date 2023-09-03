@@ -1,0 +1,31 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+#Add file for paraView
+touch paraViewOpen.foam
+
+# Mesh creation
+runApplication blockMesh
+
+#Run case
+runApplication decomposePar
+runParallel $(getApplication)
+
+
+#Reconstruct case
+timeList=$(ls processor0/ | awk '$1!="constant"');
+for line in $timeList
+do
+    echo "Recontructing mesh for t = "$line" s";
+    reconstructParMesh -mergeTol 1e-06 -time $line > logTmp;
+
+    echo "Reconstructing fields for t = "$line" s";
+    reconstructPar -time $line > logTmp;
+
+    echo "";
+done
+rm logTmp;
+
+#------------------------------------------------------------------------------
